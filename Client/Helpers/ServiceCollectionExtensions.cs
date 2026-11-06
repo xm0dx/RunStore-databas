@@ -23,6 +23,7 @@ public static class ServiceCollectionExtensions
         collection.AddTransient<IProductService, ProductServices>();
         collection.AddTransient<ICustomerService, CustomerServices>();
         collection.AddTransient<ISalesOrdersService, SalesOrderService>();
+        collection.AddTransient<ISupplierService, SupplierService>();
 
         collection.AddSingleton<Func<PageViewsEnum, ViewModelBase>>(c => name => name switch
         {
