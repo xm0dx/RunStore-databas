@@ -7,7 +7,7 @@ using Npgsql;
 namespace Client.Services;
 
 // samma upplägg som ProductServices, ärver BaseService för ConnectionString
-public class SupplierService : BaseService, ISupplierService
+public class SupplierServices : BaseService, ISupplierService
 {
     public async Task<List<Supplier>> List()
     {
