@@ -1,0 +1,7 @@
+bin/
+obj/
+.vscode/
+
+# anslutningssträngen med lösenord ska inte pushas
+appsettings.json
+AppSettings.json
