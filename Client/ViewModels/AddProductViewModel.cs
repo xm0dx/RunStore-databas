@@ -12,6 +12,7 @@ namespace Client.ViewModels;
 public partial class AddProductViewModel : ViewModelBase
 {
     private readonly IProductService _productService;
+    private readonly ISupplierService _supplierService;
 
     [ObservableProperty]
     public partial string ItemNumber { get; set; } = string.Empty;
@@ -32,14 +33,30 @@ public partial class AddProductViewModel : ViewModelBase
     public AddProductViewModel()
     {
         _productService = new ProductServices();
+        _supplierService = new SupplierServices();
         PageTitle = "Ny Produkt";
     }
     /*********************************************/
 
-    public AddProductViewModel(IProductService productService)
+    public AddProductViewModel(IProductService productService, ISupplierService supplierService)
     {
         _productService = productService;
+        _supplierService = supplierService;
         PageTitle = "Ny Produkt";
+        Init();
+    }
+
+    // hämtar leverantörerna till listan i ComboBox
+    private async void Init()
+    {
+        try
+        {
+            Suppliers = new ObservableCollection<Supplier>(await _supplierService.List());
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 
     [RelayCommand]
