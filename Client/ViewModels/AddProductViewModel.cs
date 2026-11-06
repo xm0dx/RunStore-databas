@@ -23,6 +23,8 @@ public partial class AddProductViewModel : ViewModelBase
     public partial int Price { get; set; }
     [ObservableProperty]
     public partial ObservableCollection<Supplier> Suppliers { get; set; } = [];
+    [ObservableProperty]
+    public partial Supplier? SelectedSupplier { get; set; }
 
     // Endast för design och preview hantering
     /* Ta bort när allt fungerar!!! */
