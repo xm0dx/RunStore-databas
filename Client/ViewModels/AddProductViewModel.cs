@@ -1,4 +1,5 @@
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Client.Interfaces;
 using Client.Models;
@@ -20,6 +21,8 @@ public partial class AddProductViewModel : ViewModelBase
     public partial string Supplier { get; set; } = string.Empty;
     [ObservableProperty]
     public partial int Price { get; set; }
+    [ObservableProperty]
+    public partial ObservableCollection<Supplier> Suppliers { get; set; } = [];
 
     // Endast för design och preview hantering
     /* Ta bort när allt fungerar!!! */
