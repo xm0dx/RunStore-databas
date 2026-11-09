@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:Client.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="450"
              x:Class="Client.Views.SalesOrdersView"
              x:DataType="vm:SalesOrdersViewModel">
 
@@ -14,7 +14,7 @@
   <StackPanel>
     <TextBlock Classes="pageTitle" Text="{Binding PageTitle}" />
     <Border BorderBrush="White" BorderThickness="0 0 0 1" Padding="0 50 0 5">
-      <Grid ColumnDefinitions="300,200,120,120,250,*" ShowGridLines="False">
+      <Grid ColumnDefinitions="100,200,120,150,250,*" ShowGridLines="False">
         <Label Content="Ordernr" />
         <Label Grid.Column="1" Content="Order datum" />
         <Label Grid.Column="2" Content="Förnamn" />
@@ -26,7 +26,7 @@
     <ItemsControl ItemsSource="{Binding SalesOrders}">
       <ItemsControl.ItemTemplate>
         <DataTemplate>
-          <Grid ColumnDefinitions="300,200,120,120,250,*" ShowGridLines="False">
+          <Grid ColumnDefinitions="100,200,120,150,250,*" ShowGridLines="False">
             <Label Content="{Binding OrderId}" />
             <Label Grid.Column="1" Content="{Binding OrderDate}" />
             <Label Grid.Column="2" Content="{Binding Customer.FirstName}" />

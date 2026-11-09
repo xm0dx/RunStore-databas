@@ -5,6 +5,7 @@
   <SolidColorBrush x:Key="ForegroundColor" Color="{DynamicResource PrimaryForegroundColor}" />
   <SolidColorBrush x:Key="BackgroundColor" Color="{DynamicResource PrimaryBackgroundColor}" />
   <SolidColorBrush x:Key="Danger" Color="{DynamicResource DangerColor}" />
+  <SolidColorBrush x:Key="Confirm" Color="{DynamicResource ConfirmColor}" />
 
   <LinearGradientBrush x:Key="PrimaryBackgroundGradient" StartPoint="0% 0%" EndPoint="100% 0%">
     <GradientStop Offset="0" Color="#04041F"/>

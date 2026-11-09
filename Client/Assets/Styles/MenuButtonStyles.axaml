@@ -35,15 +35,6 @@
   </Design.PreviewWith>
 
   <!-- Add Styles Here -->
-  <Style Selector="Button">
-    <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
-    <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />
-    <Setter Property="FontSize" Value="20"/>
-    <Setter Property="Padding" Value="15 10"/>
-    <Setter Property="HorizontalAlignment" Value="Stretch"/>
-    <Setter Property="MinWidth" Value="200" />
-  </Style>
-
   <Style Selector="Button.warning">
     <Setter Property="Foreground" Value="{DynamicResource WarningColor}" />
     <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />

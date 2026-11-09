@@ -1,0 +1,60 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <!-- Add Controls for Previewer Here -->
+      <StackPanel>
+        <Button Content="Basic Button" />
+
+        <!-- Icon Edit button -->
+        <Button Classes="icon-edit"/>
+
+        <!-- Icon Delete button -->
+        <Button Classes="icon-delete"/>
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+
+  <!-- Add Styles Here -->
+  <!-- Base button -->
+  <Style Selector="Button">
+    <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
+    <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />
+    <Setter Property="FontSize" Value="20"/>
+    <Setter Property="Padding" Value="15 10"/>
+    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    <Setter Property="MinWidth" Value="200" />
+  </Style>
+
+  <!-- Icon-Edit button -->
+  <Style Selector="Button.icon-edit">
+    <Setter Property="MinWidth" Value="30"/>
+    <Setter Property="MaxWidth" Value="50"/>
+    <Setter Property="FontFamily" Value="{DynamicResource IconFont}" />
+    <Setter Property="Foreground" Value="{DynamicResource Confirm}" />
+    <Setter Property="Content" Value="&#xe3b4;" />
+    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    <Setter Property="BorderThickness" Value="0" />
+  </Style>
+
+  <Style Selector="Button.icon-edit:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource Confirm}" />
+    <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
+  </Style>
+
+  <!-- Icon-Delete button -->
+  <Style Selector="Button.icon-delete">
+    <Setter Property="MinWidth" Value="30"/>
+    <Setter Property="MaxWidth" Value="50"/>
+    <Setter Property="FontFamily" Value="{DynamicResource IconFont}" />
+    <Setter Property="Foreground" Value="{DynamicResource Danger}" />
+    <Setter Property="Content" Value="&#xe4a6;" />
+    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    <Setter Property="BorderThickness" Value="0" />
+  </Style>
+
+  <Style Selector="Button.icon-delete:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource Danger}" />
+    <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
+  </Style>
+</Styles>

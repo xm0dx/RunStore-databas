@@ -19,6 +19,7 @@
     <AvaloniaResource Include="Assets\**\*" />
     <AvaloniaXaml Remove="Assets/Resources/AppResources.axaml" />
     <AvaloniaXaml Remove="Assets/Resources/ColorsResources.axaml" />
+    <AvaloniaXaml Remove="Assets/Styles/ButtonStyles.axaml" />
     <AvaloniaXaml Remove="Assets/Styles/LabelStyles.axaml" />
     <AvaloniaXaml Remove="Assets/Styles/MenuButtonStyles.axaml" />
     <AvaloniaXaml Remove="Assets/Styles/TextBoxStyles.axaml" />

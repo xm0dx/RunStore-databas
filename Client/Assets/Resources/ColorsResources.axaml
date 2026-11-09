@@ -5,4 +5,5 @@
   <Color x:Key="PrimaryBackgroundColor">#04041F</Color>
   <Color x:Key="DangerColor">#940202</Color>
   <Color x:Key="WarningColor">#F45906</Color>
+  <Color x:Key="ConfirmColor">#04C004</Color>
 </ResourceDictionary>

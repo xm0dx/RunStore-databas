@@ -24,7 +24,7 @@
           <TextBox Text="{Binding ItemNumber}" Grid.Column="1" HorizontalAlignment="Left" />
           <TextBox Text="{Binding ProductName}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" />
           <!-- <TextBox Text="{Binding Supplier}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" /> -->
-          <ComboBox ItemsSource="{Binding Suppliers}" SelectedItem="{Binding SelectedSupplier}" DisplayMemberBinding="{Binding SupplierName}" Grid.Column="1" Grid.Row="2" />
+          <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Suppliers}" SelectedItem="{Binding SelectedSupplier}" PlaceholderText="Välj leverantör" Foreground="White" />
           <TextBox Text="{Binding Price}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" />
         </Grid>
         <StackPanel Spacing="20" Margin="0 30 0 0" Orientation="Horizontal" HorizontalAlignment="Center">

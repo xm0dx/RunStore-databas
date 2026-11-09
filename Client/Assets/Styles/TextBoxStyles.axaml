@@ -25,4 +25,12 @@
     <Setter Property="BorderThickness" Value="2" />
     <Setter Property="CornerRadius" Value="50"/>
   </Style>
+
+  <Style Selector="ComboBox">
+    <Setter Property="MaxWidth" Value="300" />
+    <Setter Property="MinWidth" Value="300" />
+    <Setter Property="Background" Value="Black" />
+    <Setter Property="BorderBrush" Value="Blue" />
+    <Setter Property="BorderThickness" Value="1" />
+  </Style>
 </Styles>
