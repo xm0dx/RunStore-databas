@@ -20,10 +20,11 @@ public static class ServiceCollectionExtensions
         collection.AddTransient<AddProductViewModel>();
         collection.AddTransient<EditProductViewModel>();
         collection.AddTransient<SalesOrdersViewModel>();
-        collection.AddTransient<IProductService, ProductServices>();
-        collection.AddTransient<ICustomerService, CustomerServices>();
-        collection.AddTransient<ISalesOrdersService, SalesOrderService>();
-        collection.AddTransient<ISupplierService, SupplierServices>();
+        // generiska klasser registreras med typeof(...<>)
+        collection.AddTransient(typeof(IProductService<>), typeof(ProductServices<>));
+        collection.AddTransient(typeof(ICustomerService<>), typeof(CustomerServices<>));
+        collection.AddTransient(typeof(ISalesOrdersService<>), typeof(SalesOrderService<>));
+        collection.AddTransient(typeof(ISupplierService<>), typeof(SupplierServices<>));
 
         collection.AddSingleton<Func<PageViewsEnum, ViewModelBase>>(c => name => name switch
         {
