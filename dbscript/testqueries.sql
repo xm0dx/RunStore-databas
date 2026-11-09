@@ -1,20 +1,58 @@
--- Active: 1793867752270@@ep-dark-mouse-zak599am.c-2.eu-west-2.aws.neon.tech@5432@skoldb
--- här testar jag frågorna i databasen innan de läggs in i C#-koden
-
--- alla produkter, kolumnerna kommer i samma ordning som i tabellen
-SELECT * FROM products;
-
-SELECT * FROM suppliers;
-
--- frågan som ProductServices.List() använder
--- suppliername finns i suppliers, därför INNER JOIN
 SELECT
     products.id,
     itemnumber,
     productname,
-    description,
-    imageurl,
     price,
     suppliername
 FROM products INNER JOIN suppliers
     ON products.supplier_id = suppliers.id;
+
+SELECT
+    id,
+    firstname,
+    lastname,
+    email,
+    COALESCE(phone,'Saknas') AS phone
+FROM customers;
+
+SELECT
+    salesorders.id,
+    ordernumber,
+    orderdate,
+    firstname,
+    lastname,
+    email,
+    SUM(quantity * price) AS ordervalue
+FROM salesorders INNER JOIN customers
+    ON salesorders.customer_id = customers.id INNER JOIN orderitems
+    ON salesorders.id = orderitems.order_id
+GROUP BY salesorders.id,ordernumber,orderdate,firstname,lastname,email;
+
+SELECT
+    id,
+    suppliername
+FROM suppliers WHERE LOWER(suppliername) = 'asics';
+
+SELECT 
+    products.id,
+    itemnumber,
+    productname,
+    COALESCE(description,'') AS description,
+    COALESCE(imageurl,'') as imageurl,
+    price,
+    suppliers.id AS supplierId,
+    suppliers.suppliername 
+FROM products INNER JOIN suppliers
+    ON products.supplier_id = suppliers.id 
+WHERE itemnumber = '1000';
+
+UPDATE products SET price = 100 WHERE itemnumber = '1000';
+
+SELECT
+    id,
+    firstname,
+    lastname,
+    email,
+    COALESCE(phone,'Saknas') AS phone
+FROM customers
+    WHERE email = 'michael@mail.com';
