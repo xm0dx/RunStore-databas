@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Client.Interfaces;
@@ -6,29 +7,92 @@ using Npgsql;
 
 namespace Client.Services;
 
-// samma upplägg som ProductServices, ärver BaseService för ConnectionString
-public class SupplierServices : BaseService, ISupplierService
+public class SupplierServices<T> : BaseService, ISupplierService<Supplier>
 {
-    public async Task<List<Supplier>> List()
+    // add, delete och update är inte gjorda än
+    public Task<bool> Add(Supplier data)
     {
-        List<Supplier> suppliers = [];
-        using NpgsqlConnection connection = new(ConnectionString);
-        using NpgsqlCommand command = connection.CreateCommand();
-        command.CommandText = "SELECT id, suppliername FROM suppliers";
-        await connection.OpenAsync();
+        throw new NotImplementedException();
+    }
 
-        using NpgsqlDataReader reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
+    public Task Delete(Supplier data)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<Supplier> Find(string search)
+    {
+        try
         {
-            Supplier supplier = new()
-            {
-                // id är ett heltal i tabellen men string i Supplier
-                Id = reader.GetInt32(0).ToString(),
-                SupplierName = reader.GetString(1)
-            };
-            suppliers.Add(supplier);
-        }
 
-        return suppliers;
+            using NpgsqlConnection connection = new(ConnectionString);
+            using NpgsqlCommand command = connection.CreateCommand();
+            // söker på namnet utan att bry sig om stora och små bokstäver
+            command.CommandText = $"SELECT id, suppliername FROM suppliers WHERE LOWER(suppliername)='{search.ToLower()}'";
+
+            await connection.OpenAsync();
+            using NpgsqlDataReader reader = await command.ExecuteReaderAsync();
+
+            await reader.ReadAsync();
+            return new Supplier { Id = reader.GetInt32(0), Name = reader.GetString(1) };
+
+        }
+        catch (InvalidOperationException ex)
+        {
+            throw new Exception(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public Task<Supplier> FindById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<List<Supplier>> ListAll()
+    {
+        try
+        {
+            List<Supplier> suppliers = [];
+
+            using NpgsqlConnection connection = new(ConnectionString);
+            using NpgsqlCommand command = connection.CreateCommand();
+
+            command.CommandText = @"SELECT
+                                        id,
+                                        suppliername
+                                    FROM suppliers";
+
+            await connection.OpenAsync();
+
+            using NpgsqlDataReader reader = await command.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                suppliers.Add(new Supplier()
+                {
+                    Id = reader.GetInt32(0),
+                    Name = reader.GetString(1)
+                });
+            }
+
+            return suppliers;
+        }
+        catch (InvalidOperationException ex)
+        {
+            throw new Exception(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public Task Update(Supplier data)
+    {
+        throw new NotImplementedException();
     }
 }
