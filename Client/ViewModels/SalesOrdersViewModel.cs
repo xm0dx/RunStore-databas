@@ -12,19 +12,19 @@ namespace Client.ViewModels;
 
 public partial class SalesOrdersViewModel : ViewModelBase
 {
-    private readonly ISalesOrdersService _salesOrderService;
+    private readonly ISalesOrdersService<SalesOrder> _salesOrderService;
 
     [ObservableProperty]
     public partial ObservableCollection<SalesOrder> SalesOrders { get; set; } = [];
 
     public SalesOrdersViewModel()
     {
-        _salesOrderService = new SalesOrderService();
+        _salesOrderService = new SalesOrderService<SalesOrder>(new CustomerServices<Customer>());
         PageTitle = "Beställningar";
         Init();
     }
 
-    public SalesOrdersViewModel(ISalesOrdersService salesOrdersService)
+    public SalesOrdersViewModel(ISalesOrdersService<SalesOrder> salesOrdersService)
     {
         _salesOrderService = salesOrdersService;
         PageTitle = "Beställningar";
@@ -40,7 +40,7 @@ public partial class SalesOrdersViewModel : ViewModelBase
     {
         try
         {
-            var orders = await _salesOrderService.List();
+            var orders = await _salesOrderService.ListAll();
             SalesOrders = new ObservableCollection<SalesOrder>(orders);
         }
         catch (Exception ex)

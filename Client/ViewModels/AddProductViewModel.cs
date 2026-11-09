@@ -11,8 +11,8 @@ namespace Client.ViewModels;
 
 public partial class AddProductViewModel : ViewModelBase
 {
-    private readonly IProductService _productService;
-    private readonly ISupplierService _supplierService;
+    private readonly IProductService<Product> _productService;
+    private readonly ISupplierService<Supplier> _supplierService;
 
     [ObservableProperty]
     public partial string ItemNumber { get; set; } = string.Empty;
@@ -21,56 +21,49 @@ public partial class AddProductViewModel : ViewModelBase
     [ObservableProperty]
     public partial string Supplier { get; set; } = string.Empty;
     [ObservableProperty]
-    public partial int Price { get; set; }
+    public partial string Price { get; set; } = "";
+    [ObservableProperty]
+    public partial Supplier? SelectedSupplier { get; set; } = new() { Name = "" };
     [ObservableProperty]
     public partial ObservableCollection<Supplier> Suppliers { get; set; } = [];
-    [ObservableProperty]
-    public partial Supplier? SelectedSupplier { get; set; }
 
     // Endast för design och preview hantering
     /* Ta bort när allt fungerar!!! */
     // TODO: Ta bort när allt fungerar...
     public AddProductViewModel()
     {
-        _productService = new ProductServices();
-        _supplierService = new SupplierServices();
+        _productService = new ProductServices<Product>(new SupplierServices<Supplier>());
+        _supplierService = new SupplierServices<Supplier>();
         PageTitle = "Ny Produkt";
+        Init();
     }
     /*********************************************/
 
-    public AddProductViewModel(IProductService productService, ISupplierService supplierService)
+    public AddProductViewModel(IProductService<Product> productService, ISupplierService<Supplier> supplierService)
     {
         _productService = productService;
         _supplierService = supplierService;
+
         PageTitle = "Ny Produkt";
         Init();
     }
 
-    // hämtar leverantörerna till listan i ComboBox
     private async void Init()
     {
-        try
-        {
-            Suppliers = new ObservableCollection<Supplier>(await _supplierService.List());
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
+        Suppliers = new ObservableCollection<Supplier>(await _supplierService.ListAll());
     }
 
     [RelayCommand]
     private async Task Save()
     {
-        // Behöver eventuellt göra validering här...
         Product product = new()
         {
             ItemNumber = ItemNumber,
             Name = ProductName,
-            SupplierName = Supplier,
+            Supplier = SelectedSupplier!, // den som valdes i comboboxen
             ImageUrl = "https://res.cloudinary.com/softtech-dev/image/upload/v1773483409/no-image_ymlpwk.png",
             Description = "Ny Produkt",
-            Price = Price
+            Price = int.TryParse(Price, out int price) ? price : 0
         };
 
         await _productService.Add(product);
@@ -83,6 +76,7 @@ public partial class AddProductViewModel : ViewModelBase
         ItemNumber = string.Empty;
         ProductName = string.Empty;
         Supplier = string.Empty;
-        Price = 0;
+        SelectedSupplier = null;
+        Price = "";
     }
 }

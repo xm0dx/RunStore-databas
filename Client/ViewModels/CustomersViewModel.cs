@@ -10,19 +10,19 @@ namespace Client.ViewModels;
 
 public partial class CustomersViewModel : ViewModelBase
 {
-    private readonly ICustomerService _customerService;
+    private readonly ICustomerService<Customer> _customerService;
 
     [ObservableProperty]
     public partial ObservableCollection<Customer> Customers { get; set; } = [];
 
     public CustomersViewModel()
     {
-        _customerService = new CustomerServices();
+        _customerService = new CustomerServices<Customer>();
         PageTitle = "Kund Lista";
         Init();
     }
 
-    public CustomersViewModel(ICustomerService customerService)
+    public CustomersViewModel(ICustomerService<Customer> customerService)
     {
         _customerService = customerService;
         PageTitle = "Kund Lista";
@@ -38,7 +38,7 @@ public partial class CustomersViewModel : ViewModelBase
     {
         try
         {
-            var customers = await _customerService.List();
+            var customers = await _customerService.ListAll();
             Customers = new ObservableCollection<Customer>(customers);
         }
         catch (Exception ex)

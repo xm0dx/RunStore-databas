@@ -12,7 +12,7 @@ namespace Client.ViewModels;
 
 public partial class ProductsViewModel : ViewModelBase
 {
-    private readonly IProductService? _productService;
+    private readonly IProductService<Product>? _productService;
     private readonly MainWindowViewModel? _mainWindowViewModel;
     private string _productId = string.Empty;
 
@@ -24,9 +24,11 @@ public partial class ProductsViewModel : ViewModelBase
 
     public ProductsViewModel()
     {
+        _productService = new ProductServices<Product>(new SupplierServices<Supplier>());
         PageTitle = "Våra produkter";
+        Init();
     }
-    public ProductsViewModel(IProductService productService, MainWindowViewModel mainWindowViewModel)
+    public ProductsViewModel(IProductService<Product> productService, MainWindowViewModel mainWindowViewModel)
     {
         _productService = productService;
         _mainWindowViewModel = mainWindowViewModel;
@@ -74,7 +76,10 @@ public partial class ProductsViewModel : ViewModelBase
     {
         try
         {
-            Products = new ObservableCollection<Product>(await _productService!.List());
+            if (_productService is not null)
+            {
+                Products = new ObservableCollection<Product>(await _productService.ListAll());
+            }
         }
         catch (Exception ex)
         {
